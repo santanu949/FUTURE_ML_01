@@ -1,4 +1,27 @@
+# Core Data Science
 pandas
 numpy
 prophet
 matplotlib
+plotly
+scikit-learn
+xgboost
+statsmodels
+
+# Optimization & Tuning
+optuna
+
+# API & Deployment
+fastapi
+uvicorn
+python-multipart
+typer
+
+# Visualization & UI
+streamlit
+
+# Utilities
+python-dotenv
+joblib
+tqdm
+fpdf
