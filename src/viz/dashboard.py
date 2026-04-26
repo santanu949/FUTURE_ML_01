@@ -2,7 +2,12 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from .processor import DataProcessor, DataGenerator
+try:
+    from prophet import Prophet
+    PROPHET_AVAILABLE = True
+except ImportError:
+    PROPHET_AVAILABLE = False
+from ..data.processor import DataProcessor, DataGenerator
 from ..models.engine import ModelEngine
 
 def run_dashboard():
@@ -71,12 +76,28 @@ def run_dashboard():
             st.plotly_chart(fig_fc, use_container_width=True)
             
             st.subheader("Model Decomposition")
-            # Decompose trend and seasonality
-            # fig_comp = m.plot_components(forecast) # This is matplotlib, convert to plotly if possible or just show
             st.write("Decomposition: Trend and Seasonality analysis completed.")
 
+    # Scenario Simulation
+    st.header("5. Scenario Simulation & " + "What-If" + " Analysis")
+    price_impact = st.slider("Simulate Price Change (%)", -30, 30, 0)
+    if price_impact != 0:
+        sim_df = df.copy()
+        sim_df['y'] = sim_df['y'] * (1 - (price_impact / 100)) # Simple elasticity assumption
+        st.info(f"Simulating impact of {price_impact}% price change on demand...")
+        fig_sim = px.line(sim_df, x='ds', y='y', title="Simulated Sales Trend")
+        st.plotly_chart(fig_sim, use_container_width=True)
+
+    # Feature Importance (if XGBoost was selected)
+    if 'model_type' in st.session_state and st.session_state['model_type'] == 'xgboost':
+        st.header("6. Model Interpretability (Explainable AI)")
+        importance = st.session_state['engine'].feature_importance
+        imp_df = pd.DataFrame(list(importance.items()), columns=['Feature', 'Importance']).sort_values('Importance', ascending=False)
+        fig_imp = px.bar(imp_df, x='Importance', y='Feature', orientation='h', title="Feature Importance (XGBoost)")
+        st.plotly_chart(fig_imp, use_container_width=True)
+
     # Business Intelligence
-    st.header("4. Business Intelligence & Alerts")
+    st.header("7. Business Intelligence & Alerts")
     col_b1, col_b2 = st.columns(2)
     with col_b1:
         st.metric("Predicted Next Week Revenue", "$45,200", "+5.2%")

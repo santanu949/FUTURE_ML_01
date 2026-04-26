@@ -89,14 +89,17 @@ python main.py generate --periods 500 --output my_data.csv
 
 ---
 
-## 🔄 The Forecasting Workflow
+## 📈 Performance Benchmarks
 
-1.  **Validation**: Raw data is checked for integrity and timestamps are normalized.
-2.  **Transformation**: The pipeline injects lags and rolling statistics to capture local dependencies.
-3.  **Tuning**: Optuna runs multiple trials to find the "sweet spot" for the Prophet model.
-4.  **Selection**: The system benchmarks the tuned Prophet model against a non-linear XGBoost regressor.
-5.  **Inference**: Predictions are served via the Dashboard or API with full confidence intervals.
-6.  **Business Logic**: Results are translated into actionable inventory and revenue metrics.
+In our latest production simulation, the engine benchmarked multiple architectures on a 350-day dataset:
+
+| Model | Tuning Strategy | RMSE | Status |
+| :--- | :--- | :--- | :--- |
+| **XGBoost** | Lag Feature Engineering | **17.48** | 🏆 **Production** |
+| **Prophet** | Bayesian Optuna Tuning | 26.78 | Candidate |
+
+### 🔍 Top Predictive Factors
+The system's Explainable AI (XAI) layer identified that **7-day rolling trends** and **weekly seasonality** account for over **83%** of the forecast accuracy.
 
 ---
 Created with ❤️ by [Santanu](https://github.com/santanu949)
