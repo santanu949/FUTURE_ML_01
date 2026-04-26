@@ -101,5 +101,13 @@ In our latest production simulation, the engine benchmarked multiple architectur
 ### 🔍 Top Predictive Factors
 The system's Explainable AI (XAI) layer identified that **7-day rolling trends** and **weekly seasonality** account for over **83%** of the forecast accuracy.
 
+## 🛠️ Troubleshooting
+
+### Modular Import Errors
+If you encounter `ModuleNotFoundError: No module named 'src'`, ensure you are running the commands from the project root. The system includes dynamic `sys.path` adjustments in `dashboard.py` and `app.py` to handle absolute imports automatically.
+
+### Windows Path Lengths
+If Prophet fails to install due to the 260-character limit, the engine will automatically fall back to **XGBoost**, ensuring the platform remains functional.
+
 ---
 Created with ❤️ by [Santanu](https://github.com/santanu949)
