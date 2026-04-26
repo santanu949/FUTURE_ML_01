@@ -1,6 +1,12 @@
 import optuna
 import pandas as pd
 import numpy as np
+import sys
+import os
+
+# Ensure project root is in path for absolute imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
 try:
     from prophet import Prophet
     from prophet.diagnostics import cross_validation, performance_metrics

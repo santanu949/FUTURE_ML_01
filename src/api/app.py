@@ -1,6 +1,12 @@
 from fastapi import FastAPI, UploadFile, File
 import pandas as pd
 import io
+import sys
+import os
+
+# Ensure project root is in path for absolute imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
 from src.models.engine import ModelEngine
 from src.data.processor import DataProcessor
 
