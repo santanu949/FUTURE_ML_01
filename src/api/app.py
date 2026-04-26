@@ -1,8 +1,8 @@
 from fastapi import FastAPI, UploadFile, File
 import pandas as pd
 import io
-from ..models.engine import ModelEngine
-from ..data.processor import DataProcessor
+from src.models.engine import ModelEngine
+from src.data.processor import DataProcessor
 
 app = FastAPI(title="Future Forecast API")
 

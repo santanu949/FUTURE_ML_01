@@ -52,7 +52,7 @@ class ModelEngine:
 
     def train_xgboost(self, test_size=30):
         """Trains an XGBoost model on lag features and provides feature importance."""
-        from ..data.processor import DataProcessor
+        from src.data.processor import DataProcessor
         
         # Prepare data for ML
         df = self.data.copy()

@@ -7,8 +7,8 @@ try:
     PROPHET_AVAILABLE = True
 except ImportError:
     PROPHET_AVAILABLE = False
-from ..data.processor import DataProcessor, DataGenerator
-from ..models.engine import ModelEngine
+from src.data.processor import DataProcessor, DataGenerator
+from src.models.engine import ModelEngine
 
 def run_dashboard():
     st.set_page_config(page_title="Future Forecast Pro", layout="wide")
